@@ -1,0 +1,8 @@
+/convertkit
+/convertkit.json
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
