@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>convertkit — Agentic-First Data Format Conversion</title>
+    <meta name="description" content="Agentic-first data format conversion service. Convert between JSON, YAML, TOML, CSV, XML, Properties, JSONL, and Env formats.">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --border: #30363d;
+            --text: #e6edf3;
+            --muted: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --purple: #bc8cff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+        header { padding: 80px 0 40px; text-align: center; }
+        header h1 { font-size: 36px; font-weight: 700; margin-bottom: 8px; }
+        header h1 span { color: var(--accent); }
+        header .tagline { color: var(--muted); font-size: 18px; }
+        .badge {
+            display: inline-block; margin-top: 16px;
+            background: rgba(88,166,255,0.1); color: var(--accent);
+            border: 1px solid rgba(88,166,255,0.3);
+            padding: 4px 16px; border-radius: 20px; font-size: 14px;
+        }
+        section { padding: 40px 0; }
+        h2 { font-size: 22px; margin-bottom: 16px; }
+        .format-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px; margin-bottom: 24px;
+        }
+        .format-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 8px; padding: 16px; text-align: center;
+        }
+        .format-card .name { font-weight: 600; font-size: 15px; }
+        .format-card .desc { color: var(--muted); font-size: 12px; margin-top: 4px; }
+        .code-block {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 8px; padding: 20px; overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 13px; line-height: 1.5;
+        }
+        .code-block .comment { color: var(--muted); }
+        .code-block .key { color: var(--accent); }
+        .code-block .string { color: var(--green); }
+        .features { list-style: none; }
+        .features li {
+            padding: 8px 0; border-bottom: 1px solid var(--border);
+            color: var(--muted); font-size: 15px;
+        }
+        .features li:last-child { border-bottom: none; }
+        .features li strong { color: var(--text); }
+        footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 14px; }
+        footer a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 600px) {
+            header h1 { font-size: 28px; }
+            .format-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>convert<span>kit</span></h1>
+        <div class="tagline">Agentic-first data format conversion service</div>
+        <div class="badge">Single Go binary · Zero external deps · Plain text API</div>
+    </header>
+
+    <section>
+        <h2>Supported Formats</h2>
+        <div class="format-grid">
+            <div class="format-card"><div class="name">JSON</div><div class="desc">JavaScript Object Notation</div></div>
+            <div class="format-card"><div class="name">YAML</div><div class="desc">YAML Ain't Markup Language</div></div>
+            <div class="format-card"><div class="name">TOML</div><div class="desc">Tom's Obvious Minimal Language</div></div>
+            <div class="format-card"><div class="name">CSV</div><div class="desc">Comma-Separated Values</div></div>
+            <div class="format-card"><div class="name">XML</div><div class="desc">eXtensible Markup Language</div></div>
+            <div class="format-card"><div class="name">Properties</div><div class="desc">Java key=value format</div></div>
+            <div class="format-card"><div class="name">JSONL</div><div class="desc">JSON Lines</div></div>
+            <div class="format-card"><div class="name">Env</div><div class="desc">Environment variables</div></div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Quick Start</h2>
+        <div class="code-block">
+<span class="comment"># Build and run</span>
+make build
+./convertkit
+
+<span class="comment"># Convert JSON to YAML</span>
+curl -X POST -H <span class="string">'Authorization: Bearer TOKEN'</span> \
+  -d <span class="string">'{"name":"test","value":42}'</span> \
+  <span class="string">'http://localhost:7700/convert?from=json&to=yaml'</span>
+
+<span class="comment"># Response (plain text)</span>
+name: test
+value: 42
+        </div>
+    </section>
+
+    <section>
+        <h2>Key Features</h2>
+        <ul class="features">
+            <li><strong>8 format support</strong> — JSON, YAML, TOML, CSV, XML, Properties, JSONL, Env</li>
+            <li><strong>Custom parsers</strong> — YAML, TOML, and XML parsers written from scratch (zero external deps)</li>
+            <li><strong>OTP auth</strong> — Email → OTP → bearer token flow</li>
+            <li><strong>Multi-tenant</strong> — Workspaces, audit logs, conversion history</li>
+            <li><strong>MCP endpoint</strong> — JSON-RPC 2.0 at /mcp for chat client integrations</li>
+            <li><strong>Self-documenting</strong> — GET /help returns a one-page operating manual</li>
+            <li><strong>Plain text by default</strong> — JSON available via Accept header</li>
+            <li><strong>Instructive errors</strong> — Every 4xx includes a hint for self-correction</li>
+            <li><strong>Single binary</strong> — CGO_ENABLED=0, deploys as one file</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>
+            <a href="https://github.com/relentlessworks/convertkit">github.com/relentlessworks/convertkit</a>
+            · Built by <a href="https://github.com/relentlessworks">relentlessworks</a>
+        </p>
+    </footer>
+</div>
+
+</body>
+</html>
